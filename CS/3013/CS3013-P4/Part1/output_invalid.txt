@@ -1,0 +1,6 @@
+Instruction? Address must be between 0 and 63
+Instruction? Value must be between 0 and 255
+Instruction? PID must be between 0 and 3
+Instruction? Invalid instruction
+Instruction? Invalid value, must be 0 or 1
+Instruction? 

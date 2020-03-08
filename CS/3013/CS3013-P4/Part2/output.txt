@@ -1,0 +1,17 @@
+Instruction? Put page table for PID 0 into physical frame 0
+Mapped virtual address 0 (page 0) into physical frame 1
+Instruction? Error: Writes are not allowed to this page
+Instruction? Updated existing page table entry
+Instruction? Stored value 66 at virtual address 7 (physical address 23)
+Instruction? The value 66 is virtual address 7 (physical address 23)
+Instruction? Updated existing page table entry
+Instruction? Mapped virtual address 16 (page 1) into physical frame 2
+Instruction? Mapped virtual address 32 (page 2) into physical frame 3
+Instruction? Swapped frame 1 to swap slot 32
+Put page table for PID 1 into physical frame 1
+Swapped frame 2 to swap slot 34
+Mapped virtual address 0 (page 0) into physical frame 2
+Instruction? Swapped frame 3 to swap slot 36
+Swapped disk slot 32 into frame 3
+The value 66 is virtual address 7 (physical address 55)
+Instruction? 

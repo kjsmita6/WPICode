@@ -1,0 +1,136 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <unistd.h>
+#include <time.h>
+#include <sys/time.h>
+
+#define TRUE 1
+#define FALSE 0
+
+#define EMPTY 0
+#define PIRATE 1
+#define NINJA 2
+int room_state;				// current state of the room, one of the three values above
+int num_pirates_waiting;	// number of pirates in line
+int num_ninjas_waiting;		// number of ninjas in line
+int room_occupants;			// number of people in the room
+int num_teams;				// number of costuming teams
+
+pthread_mutex_t state;		// state lock
+pthread_mutex_t team_lock;	// costuming team lock
+pthread_cond_t room;		// room condition variable
+
+int max_pirate;
+int max_pirate_threshold;
+
+int max_ninja;
+int max_ninja_threshold;
+
+struct actor {
+	int num_visits;
+	time_t wait_time;
+	time_t visit_time;
+	int gold_owed;
+};
+
+struct team {
+	int free;		 		// whether the team is free or not, TRUE | FALSE
+	long free_time;  		// the duration of time the team has been free
+	long pirate_busy_time;  // the duration of time the team has been busy for pirates
+	long ninja_busy_time; 	// the duration of time the team has been busy for ninjas
+};
+
+void pirate(int arrival_time, struct actor *pirate_struct) {			// pirate thread function
+	//sleep(arrival_time);
+	struct timeval *tv = (struct timeval *)malloc(sizeof(struct timeval));
+	gettimeofday(tv, NULL);
+	pirate_struct->wait_time = tv->tv_sec;
+	while(TRUE) {
+		if(pthread_mutex_trylock(&state) == 0) {
+			if((room_state == EMPTY || room_state == PIRATE) && max_pirate_threshold < max_pirate && room_occupants < num_teams) {
+				break;
+			}
+			pthread_mutex_unlock(&state);
+		}
+	}
+	room_state = PIRATE;
+	room_occupants++;
+	max_pirate_threshold++;
+	gettimeofday(tv, NULL);
+	pirate_struct->wait_time = tv->tv_sec - pirate_struct->wait_time;
+	pirate_struct->visit_time = tv->tv_sec;
+	pthread_mutex_unlock(&state);
+
+	gettimeofday(tv, NULL);
+	pirate_struct->visit_time = tv->tv_sec - pirate_struct->visit_time;
+	pthread_mutex_lock(&state);
+	room_occupants--;
+	if(room_occupants == 0) {
+		if(num_ninjas_waiting > 0 && max_pirate_threshold == max_pirate) {
+			room_state = NINJA;
+		}
+		else {
+			room_state = EMPTY;
+		}
+	}
+	pthread_mutex_unlock(&state);
+	printf("Total wait time: %ld\nTotal visit time: %ld\nNumber of visits: %d\n", pirate_struct->wait_time, pirate_struct->visit_time, pirate_struct->num_visits);
+	if(rand() % 4 == 1) {
+		pirate_struct->num_visits++;
+		pirate(arrival_time, pirate_struct);
+	}
+}
+
+oid ninja(int
+void pirate_thread(int arrival_time) {
+    struct actor *pirate_struct = (struct actor *)malloc(sizeof(struct actor));
+    pirate(arrival_time, pirate_struct);
+}
+
+void ninja_thread(int arrival_time) {
+    struct actor *ninja_struct = (struct actor *)malloc(sizeof(struct actor));
+    ninja(arrival_time, ninja_struct);
+}
+
+int main(int argc, const char *argv[]) {
+	num_teams = atoi(argv[1]);					// number of teams, 2:4
+	int num_pirates = atoi(argv[2]);				// number of pirates, 10:50
+	int num_ninjas = atoi(argv[3]);					// number of ninjas, 10:50
+	int pirate_costume_time = atoi(argv[4]);	// average time spent in shop for pirates
+	int ninja_costume_time = atoi(argv[5]);		// average time spent in shop for ninjas
+	int pirate_arrive_time = atoi(argv[6]);		// average arrival time of pirates
+	int ninja_arrive_time = atoi(argv[7]);		// average arrival time of ninjas
+
+	room_state = EMPTY;
+	num_pirates_waiting = 0;
+	num_ninjas_waiting = 0;
+	pthread_mutex_init(&state, NULL);
+	pthread_mutex_init(&team_lock, NULL);
+	pthread_cond_init(&room, NULL);
+
+	max_pirate = 30 / pirate_costume_time;
+	max_ninja = 30 / ninja_costume_time;
+	max_pirate_threshold = 0;
+	max_ninja_threshold = 0;
+
+	struct team **teams = (struct team **)calloc(num_teams, sizeof(struct team *));
+	pthread_t *pirates = (pthread_t *)calloc(num_pirates, sizeof(pthread_t));
+	pthread_t *ninjas = (pthread_t *)calloc(num_ninjas, sizeof(pthread_t));
+
+	int i;
+	for(i = 0; i < num_pirates; i++) {
+		pthread_create(&pirates[i], NULL, (void *)&pirate_thread, &pirate_arrive_time); // creates each pirate thread in the array
+	}
+	for(i = 0; i < num_ninjas; i++) {
+		pthread_create(&ninjas[i], NULL, (void *)&ninja_thread, &ninja_arrive_time);	  // creates each ninja thread in the array
+	}
+
+	for(i = 0; i < num_pirates; i++) {
+		pthread_join(pirates[i], NULL);		// joins every pirate thread
+	}
+	for(i = 0; i < num_ninjas; i++) {
+		pthread_join(ninjas[i], NULL);		// joins every ninja thread
+	}
+	printf("Done waiting\n");
+}

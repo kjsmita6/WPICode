@@ -1,0 +1,128 @@
+@charset "ISO-8859-1";
+
+.titleclass {
+	font-family: "Comic Sans MS";
+	padding: 20px;
+	display: block;
+}
+h4{
+	font-family: "Comic Sans MS";
+	padding: 0px 0px 0px 0px;
+}
+ul{
+	list-style-type: none;
+}
+.sidebar {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: black;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	transition: 0.3s;
+	color: white;
+}
+
+.sidebar .PlaylistMenu .LibraryMenu {
+	padding-top: 60px;
+	text-decoration: none;
+	font-size: 50px;
+	font-family: "Arial Rounded MT";
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+	padding: 20px;
+}
+
+.sidebar .closebutton {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+	color: white;
+}
+
+.sidebar .closebutton:hover {
+	color: lightgrey;
+	text-decoration: underline;
+}
+
+.openbutton {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbutton:hover {
+  background-color: #444;
+}
+
+.sidebar li:hover {
+	text-decoration: underline;
+}
+
+body #AppendToorRemoveFromPlaylistMenu{
+	display: none;
+}
+
+body #UploadVideoMenu {
+	display: none;
+}
+
+body #DeleteVideoMenu {
+	display: none;
+}
+
+body #ShowVideoMenu {
+	display: block;
+}
+
+
+body #CreatePlaylistMenu {
+	display: none;
+}
+
+
+body #DeletePlaylistMenu {
+	display: none;
+}
+
+body #ShowPlaylistsMenu {
+	display: none;
+}
+
+body #ShowPlaylistMenu {
+	display: none;
+}
+
+.button {
+	background-color: white;
+	border-radius: 3px;
+	border-color: black;
+	font-size: 12px;
+}
+
+.button:hover {
+	background-color: black;
+	border-color: white;
+	color: white;
+}
+
+body {
+	font-family: "Comic Sans MS";
+	font-size: 12px;
+}
+
+.searchform {
+	padding: 5px;
+	border-bottom: dashed 3px black;
+}
+.menubutton {
+	font-size: 16px;
+}

@@ -1,0 +1,36 @@
+#toprow{
+	text-align: center;
+	font-family: "Comic Sans MS";
+}
+td{
+	color: black;
+	vertical-align: text-top;
+}
+#playlists{
+	color: blue;
+}
+#RTPS{
+	color: blue;
+}
+#SIL{
+	color: blue;
+}
+#bottomrow{
+	text-align: left;
+}
+
+h1{
+	color: purple;
+	margin: 0;
+	padding: 0;
+}
+h2{
+	font-size: 14px;
+	color: black;
+}
+body{
+	background-color: white;
+}
+ul{
+	list-style-type: none;
+}

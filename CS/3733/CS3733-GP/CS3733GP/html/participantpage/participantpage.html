@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type='text/javascript' src='../../js/api.js'></script>
+<script type='text/javascript' src='../../js/listSegment.js'></script>
+<script type='text/javascript' src='../../js/listPlaylist.js'></script>
+<script type='text/javascript' src='../../js/uploadSegment.js'></script>
+<script type='text/javascript' src='../../js/createPlaylist.js'></script>
+<script type='text/javascript' src='../../js/Search.js'></script>
+<script type='text/javascript' src='../../js/appendSegment.js'></script>
+<script type='text/javascript' src='../../js/deleteFromPlaylist.js'></script>
+<script type='text/javascript' src="../../js/showSegmentsInPlaylist.js"></script>
+<meta charset="ISO-8859-1">
+<title>STOTSM</title>
+<link rel="stylesheet" href="participantpage.css">
+</head>
+<div id="Sidebar" class="sidebar">
+	<a class="closebutton" onclick="closeBar()">&times; Close</a>
+	<h4 class="PlaylistMenu">Playlist</h4>
+	<ul class="Playlistlist">
+		<li id="AppendRemoveVideoButton" class="menubutton">Append/Remove Video</li>
+		<li id="ShowPlaylistButton" class="menubutton">Show Playlist</li>
+	</ul>
+	<h4 class="LibraryMenu">Library</h4>
+	<ul>
+		<li id="UploadVideoButton" class="menubutton">Upload Video</li>
+		<li id="DeleteVideoButton" class="menubutton">Delete Video</li>
+		<li id="ShowVideoButton" class="menubutton">Videos</li>
+	</ul>
+</div>
+<body>
+	<div id="title" class="titleclass">
+		<h1>STOTSM</h1>
+		<h2>by Break Even</h2>
+		<button class="openbutton" onclick="openBar()">&#9776; Menu</button>
+	</div>
+	<div id="UploadVideoMenu">
+		<form name="uploadForm" id="uploadForm" method="post"
+			enctype="multipart/form-data">
+			<input type="text" name="char" placeholder="Character"><br>
+			<input type="text" name="quote" placeholder="Quote"><br>
+			<input id="uploadSeg" name="file" type="file" accept=".ogg" class="button">
+		</form>
+		<p id="uploadStatus" hidden=true>Nothing.</p>
+		<script>
+			document.getElementById('uploadSeg').addEventListener('change',
+					uploadSegment, false);
+		</script>
+
+	</div>
+	<div id="DeleteVideoMenu">
+		<form id="deleteForm" name=deleteForm method="put"
+			enctype="multipart/form-data">
+			<input type="text" name="toDelete"> <input value="Delete"
+				type="submit" onclick="deleteSegment()" class="button">
+		</form>
+	</div>
+	<div id="ShowVideoMenu">
+		<form id="search" name=searchForm method="get" onsubmit="return false" class="searchform">
+			<input type="text" id="Schar" placeholder="Character Name"> <input
+				type="text" id="Sword" placeholder="Quote or word"> <input
+				type="submit" value="Search" onclick="search()" class="button">
+		</form>
+		<h3>Segments in Library</h3>
+		<div id="ScriptVideoMenu">
+			<script>
+				refreshSegmentList();
+			</script>
+		</div>
+	</div>
+	<div id="AppendToorRemoveFromPlaylistMenu">
+		<form id="appremForm" method="put">
+			<input type="text" name="appSeg" placeholder="Segment"> <input
+				type="submit" value="Append to" onclick="appendSegment()" class="button"> <input
+				type="text" name="appPlay" placeholder="Playlist"><br>
+			or<br> <input type="text" name="rmSeg" placeholder="Segment">
+			<input type="submit" value="Remove From" class="button"> <input type="text"
+				name="rmPlay" placeholder="Playlist">
+		</form>
+	</div>
+
+	<div id="ShowPlaylistMenu">
+		Type the name of a playlist to see the videos in that playlist.
+		<form id="showPlaylistForm" method="get" onsubmit="return false">
+			<input type="text" name="showSelectedPlaylist"
+				placeholder="Playlist name"> <input type="submit"
+				name="Searchbutton" value="Search"
+				onclick="showSegmentsInPlaylist()" class="button">
+		</form>
+		To create a playlist type the name and press the button below.
+		<form name=createPForm method="put" id="playlist"
+			onsubmit="return false">
+			<input type="text" name="playlist" placeholder="Name"> <input
+				value="Create Playlist" type="submit" onClick="createPlaylist()" class="button">
+		</form>
+		to delete a playlist type the name of the playlist and press the
+		button below.
+		<form id="deletePForm" method="put" onsubmit="return false">
+			<input name="playlistName" type="text" placeholder="Playlist">
+			<input value="Delete Playlist" type="submit"
+				onclick="deletePlaylist()" class="button">
+		</form>
+		 All created playlists are below.
+		<div id="playlistNames" class="searchform">
+			<script>
+				refreshPlaylistList();
+			</script>
+		</div>
+		<div id="listofPlaylistNames"></div>
+	</div>
+</body>
+<script>
+	document.getElementById("UploadVideoButton").onclick = function() {
+		openUploadVideoMenu()
+	};
+	document.getElementById("DeleteVideoButton").onclick = function() {
+		openDeleteVideoMenu()
+	};
+	document.getElementById("ShowVideoButton").onclick = function() {
+		openShowVideoMenu()
+	};
+	document.getElementById("AppendRemoveVideoButton").onclick = function() {
+		openAppendMenu()
+	};
+	document.getElementById("ShowPlaylistButton").onclick = function() {
+		openShowPlaylistMenu()
+	};
+
+	var stateAppendRemove = "none";
+	var stateUploadVideo = "none";
+	var stateDeleteVideo = "none";
+	var stateShowVideo = "block";
+	var stateShowPlaylist = "none";
+
+	function openBar() {
+		document.getElementById("Sidebar").style.width = "200px";
+		closeAll();
+	}
+
+	function closeBar() {
+		document.getElementById("Sidebar").style.width = "0px";
+		document.getElementById("AppendToorRemoveFromPlaylistMenu").style.display = stateAppendRemove;
+		document.getElementById("ShowPlaylistMenu").style.display = stateShowPlaylist;
+		document.getElementById("UploadVideoMenu").style.display = stateUploadVideo;
+		document.getElementById("DeleteVideoMenu").style.display = stateDeleteVideo;
+		document.getElementById("ShowVideoMenu").style.display = stateShowVideo;
+	}
+
+	function openUploadVideoMenu() {
+		document.getElementById("Sidebar").style.width = "0px";
+		stateUploadVideo = "block";
+		document.getElementById("UploadVideoMenu").style.display = stateUploadVideo;
+		stateShowVideo = "none";
+		stateAppendRemove = "none";
+		stateDeleteVideo = "none";
+		stateShowPlaylist = "none";
+	}
+
+	function openDeleteVideoMenu() {
+		document.getElementById("Sidebar").style.width = "0px";
+		stateDeleteVideo = "block";
+		document.getElementById("DeleteVideoMenu").style.display = stateDeleteVideo;
+		stateShowVideo = "none";
+		stateAppendRemove = "none";
+		stateUploadVideo = "none";
+		stateShowPlaylist = "none";
+	}
+
+	function openShowVideoMenu() {
+		document.getElementById("Sidebar").style.width = "0px";
+		stateShowVideo = "block";
+		document.getElementById("ShowVideoMenu").style.display = stateShowVideo;
+		stateAppendRemove = "none";
+		stateUploadVideo = "none";
+		stateDeleteVideo = "none";
+		stateShowPlaylist = "none";
+	}
+
+	function openAppendMenu() {
+		document.getElementById("Sidebar").style.width = "0px";
+		stateAppendRemove = "block";
+		document.getElementById("AppendToorRemoveFromPlaylistMenu").style.display = stateAppendRemove;
+		stateShowVideo = "none";
+		stateUploadVideo = "none";
+		stateDeleteVideo = "none";
+		stateShowPlaylist = "none";
+	}
+
+	function openShowPlaylistMenu() {
+		document.getElementById("Sidebar").style.width = "0px";
+		stateShowPlaylist = "block";
+		document.getElementById("ShowPlaylistMenu").style.display = stateShowPlaylist;
+		stateShowVideo = "none";
+		stateAppendRemove = "none";
+		stateUploadVideo = "none";
+		stateDeleteVideo = "none";
+	}
+
+	function closeAll() {
+		document.getElementById("AppendToorRemoveFromPlaylistMenu").style.display = "none";
+		document.getElementById("ShowPlaylistMenu").style.display = "none";
+		document.getElementById("UploadVideoMenu").style.display = "none";
+		document.getElementById("DeleteVideoMenu").style.display = "none";
+		document.getElementById("ShowVideoMenu").style.display = "none";
+	}
+</script>
+</html>

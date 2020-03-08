@@ -1,0 +1,19 @@
+Instruction? Put page table for PID 0 into physical frame 0
+Mapped virtual address 0 (page 0) into physical frame 1
+Instruction? Error: Writes are not allowed to this page
+Instruction? Updated existing page table entry
+Instruction? Stored value 44 at virtual address 7 (physical address 23)
+Instruction? Unable to locate page
+Instruction? Put page table for PID 3 into physical frame 2
+Mapped virtual address 55 (page 3) into physical frame 3
+Instruction? Unable to allocate page
+Instruction? Unable to allocate page
+Instruction? Stored value 6 at virtual address 55 (physical address 55)
+Instruction? The value 44 is virtual address 7 (physical address 23)
+Instruction? Unable to allocate page
+Instruction? The value 44 is virtual address 7 (physical address 23)
+Instruction? Unable to allocate page table
+Instruction? Unable to allocate page table
+Instruction? Unable to allocate page table
+Instruction? The value 44 is virtual address 7 (physical address 23)
+Instruction? 

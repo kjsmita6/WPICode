@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>STOTSM Admin</title>
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/listSegmentAdmin.js"></script>
+<script type="text/javascript" src="../../js/listPlaylist.js"></script>
+<script type="text/javascript" src="../../js/addRemoteSite.js"></script>
+<link rel="stylesheet" href="adminpage.css">
+
+</head>
+<body>
+	<h1>S.T.O.T.S.M. Admin</h1>
+	<h2>(Star Trek Original Televison Series Masher)</h2>
+
+	<table>
+		<tbody>
+			<tr id="toprow">
+				<td id="playlists">Playlists</td>
+				<td id="RTPS">Registered Third Party Sites</td>
+				<td id="SIL">Segments in Library (click segment name to switch
+					local/remote)</td>
+			</tr>
+			<tr id="bottomrow">
+				<td>
+					<div id='playlistNames'>
+					<script>
+					refreshPlaylistList();
+					</script>
+					</div>
+				</td>
+				<td>
+					<ul>
+						<!-- for future refrence on what li's need -->
+						<!-- <li>
+              <a href="https://www.youtube.com"> Youtube</a>
+              <img src="redx.jpeg" height="12" width="14">
+            </li> -->
+						<li>
+							<form name=RTPSForm id="remoteSite" method="put">
+								<input type="text" name="siteName" placeholder="Enter name">
+								<input type="text" name="remoteSite" placeholder="Enter URL"> 
+								<input type="text" name="apikey" placeholder="Enter API Key">
+								<input type="submit" onclick="addRemoteSite()" value="Register">
+							</form>
+						</li>
+						<div id="RemoteSiteList">
+							<script>
+							refreshThirdPartyList();
+							</script>
+						</div>
+					</ul>
+				</td>
+				<td>
+					<div id='SegmentAdminList'>
+						<script>
+          					refreshAdminSegmentList();
+         				</script>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
