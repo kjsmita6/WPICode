@@ -6,6 +6,7 @@ Some courses that I have taken may have code that is not readily available. At a
 ### Computer Science
 - [x] CS 1102 - ACCELERATED INTRODUCTION TO PROGRAM DESIGN
 - [x] CS 2102 - OBJECT-ORIENTED DESIGN CONCEPTS
+- [x] CS 2303 - SYSTEMS PROGRAMMING CONCEPTS
 - [ ] CS 2223 - ALGORITHMS
 
 ### ECE
