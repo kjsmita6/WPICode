@@ -43,24 +43,3 @@ Car 1 is in quadrant SE
 Car 1 is through the intersection
 
 THIS IS ACCEPTABLE BEHAVIOR and everything is functioning normally, we just happen to have some overlap in numbers.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
