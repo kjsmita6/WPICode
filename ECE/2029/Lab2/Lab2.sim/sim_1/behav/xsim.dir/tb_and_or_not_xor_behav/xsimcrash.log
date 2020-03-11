@@ -1,6 +1,0 @@
-Exception at PC 0x00007FF8BD8FBB93
-Printing stacktrace...
-
-Exception at PC 0x00007FF8BD601A52
-Attemped to write at address 0x00007FF8EDFAABA4
-Another exception occurred while writing back trace, hence exiting

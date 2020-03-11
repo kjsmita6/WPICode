@@ -1,6 +1,0 @@
-# compile verilog/system verilog design source files
-verilog xil_defaultlib  "tb_and_or_not_xor_time_impl.v"
-verilog xil_defaultlib  "../../../../Lab2.srcs/sim_1/new/tb_and_or_not_xor.v"
-
-# Do not sort compile order
-nosort

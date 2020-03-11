@@ -1,1 +1,0 @@
--wto "b166ff5479b44bd3965245c30e3f658b" --incr --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "unisims_ver" -L "unimacro_ver" -L "secureip" --snapshot "tb_metronome_behav" "xil_defaultlib.tb_metronome" "xil_defaultlib.glbl" -log "elaborate.log" 
