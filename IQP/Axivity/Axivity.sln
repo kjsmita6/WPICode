@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axivity", "Axivity\Axivity.csproj", "{00198A61-5129-4E8A-B115-5D59651ED94F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|anycpu = Debug|anycpu
+		Release|anycpu = Release|anycpu
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00198A61-5129-4E8A-B115-5D59651ED94F}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{00198A61-5129-4E8A-B115-5D59651ED94F}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{00198A61-5129-4E8A-B115-5D59651ED94F}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{00198A61-5129-4E8A-B115-5D59651ED94F}.Release|anycpu.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8197B711-8A27-41DB-9C56-DD13FF92642D}
+	EndGlobalSection
+EndGlobal

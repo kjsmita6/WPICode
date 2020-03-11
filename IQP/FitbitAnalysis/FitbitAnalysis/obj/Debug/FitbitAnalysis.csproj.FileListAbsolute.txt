@@ -1,0 +1,9 @@
+/Users/kylesmith/Projects/FitbitAnalysis/FitbitAnalysis/bin/Debug/FitbitAnalysis.exe
+/Users/kylesmith/Projects/FitbitAnalysis/FitbitAnalysis/bin/Debug/FitbitAnalysis.pdb
+/Users/kylesmith/Projects/FitbitAnalysis/FitbitAnalysis/obj/Debug/FitbitAnalysis.csprojAssemblyReference.cache
+/Users/kylesmith/Projects/FitbitAnalysis/FitbitAnalysis/obj/Debug/FitbitAnalysis.exe
+/Users/kylesmith/Projects/FitbitAnalysis/FitbitAnalysis/obj/Debug/FitbitAnalysis.pdb
+C:\Users\Kyle\OneDrive\IQP Code\FitbitAnalysis\FitbitAnalysis\bin\Debug\FitbitAnalysis.exe
+C:\Users\Kyle\OneDrive\IQP Code\FitbitAnalysis\FitbitAnalysis\bin\Debug\FitbitAnalysis.pdb
+C:\Users\Kyle\OneDrive\IQP Code\FitbitAnalysis\FitbitAnalysis\obj\Debug\FitbitAnalysis.exe
+C:\Users\Kyle\OneDrive\IQP Code\FitbitAnalysis\FitbitAnalysis\obj\Debug\FitbitAnalysis.pdb

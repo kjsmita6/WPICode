@@ -1,0 +1,25 @@
+﻿<Properties StartupConfiguration="{00198A61-5129-4E8A-B115-5D59651ED94F}|Default">
+  <MonoDevelop.Ide.ItemProperties.Axivity PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Axivity/Program.cs">
+    <Files>
+      <File FileName="Axivity/Program.cs" Line="13" Column="22" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Axivity" expanded="True">
+            <Node name="Axivity" expanded="True">
+              <Node name="packages.config" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|anycpu" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
