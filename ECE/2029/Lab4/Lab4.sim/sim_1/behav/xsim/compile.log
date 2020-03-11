@@ -1,0 +1,18 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "R:/ECE/Lab4/Lab4.srcs/sources_1/new/add3.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module add3
+INFO: [VRFC 10-2263] Analyzing Verilog file "R:/ECE/Lab4/Lab4.srcs/sources_1/new/binary_to_bcd.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module binary_to_bcd
+INFO: [VRFC 10-2263] Analyzing Verilog file "R:/ECE/Lab4/Lab4.srcs/sources_1/new/counter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module counter
+INFO: [VRFC 10-2263] Analyzing Verilog file "R:/ECE/Lab4/Lab4.srcs/sources_1/new/decoder_2to4.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module decoder_2to4
+INFO: [VRFC 10-2263] Analyzing Verilog file "R:/ECE/Lab4/Lab4.srcs/sources_1/new/mux4to1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4to1
+INFO: [VRFC 10-2263] Analyzing Verilog file "R:/ECE/Lab4/Lab4.srcs/sources_1/new/seven_seg_disp.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module seven_seg_disp
+INFO: [VRFC 10-2263] Analyzing Verilog file "R:/ECE/Lab4/Lab4.srcs/sources_1/new/slowclock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module slowclock
+INFO: [VRFC 10-2263] Analyzing Verilog file "R:/ECE/Lab4/Lab4.srcs/sources_1/new/bcd_disp.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module bcd_disp
+INFO: [VRFC 10-2263] Analyzing Verilog file "R:/ECE/Lab4/Lab4.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl

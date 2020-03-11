@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Tue Feb 26 13:15:30 2019
+# Process ID: 8568
+# Current directory: R:/ECE/ECE2029_Final2/ECE2029_Final2.runs/impl_1
+# Command line: vivado.exe -log Metronome.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source Metronome.tcl -notrace
+# Log file: R:/ECE/ECE2029_Final2/ECE2029_Final2.runs/impl_1/Metronome.vdi
+# Journal file: R:/ECE/ECE2029_Final2/ECE2029_Final2.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source Metronome.tcl -notrace

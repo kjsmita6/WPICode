@@ -1,0 +1,15 @@
+0.6
+2018.3
+Dec  7 2018
+00:33:28
+Z:/My_Documents/ECE/ECE2029_Final/ECE2029_Final.sim/sim_1/behav/xsim/glbl.v,1544155481,verilog,,,,glbl,,,,,,,,
+Z:/My_Documents/ECE/ECE2029_Final/ECE2029_Final.srcs/sim_1/new/tb_metronome.v,1551136159,verilog,,,,tb_metronome,,,,,,,,
+Z:/My_Documents/ECE/ECE2029_Final/ECE2029_Final.srcs/sources_1/new/Metronome.v,1551136139,verilog,,Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/add3.v,,Metronome,,,,,,,,
+Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/add3.v,1549896987,verilog,,Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/bcd_disp.v,,add3,,,,,,,,
+Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/bcd_disp.v,1551099244,verilog,,Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/binary_to_bcd.v,,bcd_disp,,,,,,,,
+Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/binary_to_bcd.v,1549897114,verilog,,Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/counter.v,,binary_to_bcd,,,,,,,,
+Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/counter.v,1551099660,verilog,,Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/decoder_2to4.v,,counter,,,,,,,,
+Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/decoder_2to4.v,1550500989,verilog,,Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/mux4to1.v,,decoder_2to4,,,,,,,,
+Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/mux4to1.v,1550499796,verilog,,Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/seven_seg_disp.v,,mux4to1,,,,,,,,
+Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/seven_seg_disp.v,1549894726,verilog,,Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/slowclock.v,,seven_seg_disp,,,,,,,,
+Z:/My_Documents/ECE/Lab4/Lab4.srcs/sources_1/new/slowclock.v,1549892687,verilog,,Z:/My_Documents/ECE/ECE2029_Final/ECE2029_Final.srcs/sim_1/new/tb_metronome.v,,slowclock,,,,,,,,

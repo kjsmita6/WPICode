@@ -1,0 +1,56 @@
+Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2017.2 (win64) Build 1909853 Thu Jun 15 18:39:09 MDT 2017
+| Date         : Mon Jan 28 10:11:57 2019
+| Host         : AK317A-16 running 64-bit major release  (build 9200)
+| Command      : report_methodology -file and_or_not_xor_methodology_drc_routed.rpt -rpx and_or_not_xor_methodology_drc_routed.rpx
+| Design       : and_or_not_xor
+| Device       : xc7a35tcpg236-1
+| Speed File   : -1
+| Design State : Routed
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 3
++--------+----------+-------------------------------------------------+------------+
+| Rule   | Severity | Description                                     | Violations |
++--------+----------+-------------------------------------------------+------------+
+| XDCC-5 | Warning  | User Non-Timing constraint/property overwritten | 3          |
++--------+----------+-------------------------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+XDCC-5#1 Warning
+User Non-Timing constraint/property overwritten  
+A new XDC property PACKAGE_PIN on outNAND overrides a previous user property.
+New Source: R:/ECE 2029 Lab 2/Lab2/Lab2.srcs/constrs_1/new/nand-nor-xnor-buf.xdc (Line: 8)
+Previous Source: R:/ECE 2029 Lab 2/Lab2/Lab2.srcs/constrs_1/new/and-or-not-xor.xdc (Line: 8)
+Related violations: <none>
+
+XDCC-5#2 Warning
+User Non-Timing constraint/property overwritten  
+A new XDC property PACKAGE_PIN on outNOR overrides a previous user property.
+New Source: R:/ECE 2029 Lab 2/Lab2/Lab2.srcs/constrs_1/new/nand-nor-xnor-buf.xdc (Line: 10)
+Previous Source: R:/ECE 2029 Lab 2/Lab2/Lab2.srcs/constrs_1/new/and-or-not-xor.xdc (Line: 10)
+Related violations: <none>
+
+XDCC-5#3 Warning
+User Non-Timing constraint/property overwritten  
+A new XDC property PACKAGE_PIN on outXNOR overrides a previous user property.
+New Source: R:/ECE 2029 Lab 2/Lab2/Lab2.srcs/constrs_1/new/nand-nor-xnor-buf.xdc (Line: 12)
+Previous Source: R:/ECE 2029 Lab 2/Lab2/Lab2.srcs/constrs_1/new/and-or-not-xor.xdc (Line: 12)
+Related violations: <none>
+
+

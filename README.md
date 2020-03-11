@@ -9,4 +9,4 @@ Some courses that I have taken may have code that is not readily available. At a
 - [ ] CS 2223 - ALGORITHMS
 
 ### ECE
-- [ ] ECE 2029 - INTRODUCTION TO DIGITAL CIRCUIT DESIGN
+- [*] ECE 2029 - INTRODUCTION TO DIGITAL CIRCUIT DESIGN
