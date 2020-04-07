@@ -22,6 +22,7 @@ public class Frame {
 		dirty = false;
 		pinned = false;
 		blockId = -1;
+		lastUsed = new Date();
 	}
 
 	/**
@@ -36,6 +37,7 @@ public class Frame {
 		this.dirty = dirty;
 		this.pinned = pinned;
 		this.blockId = blockId;
+		lastUsed = new Date();
 	}
 
 	public String getContent() {
@@ -86,7 +88,13 @@ public class Frame {
 	 * @see Frame#fileOffset(int)
 	 */
 	public String getRecord(int num) {
-		return content.substring(fileOffset(num), FILE_SIZE); // return the specified record
+		int nthRecord = num;
+		if(num > 100) { // need to calculate offset if the record is not located in the first file since the records will be in the #100s even though
+						// there aren't really that many records in that file
+			nthRecord = num - ((blockId - 1) * 100);
+		}
+		updateLastUsed();
+		return content.substring(fileOffset(nthRecord), fileOffset(nthRecord) + FILE_SIZE); // return the specified record
 	}
 
 	/**
@@ -97,15 +105,26 @@ public class Frame {
 	 * @see Frame#getRecord(int)
 	 */
 	public Boolean updateRecord(int num, String record) {
-		if(record.equals(getRecord(num))) {
+		/*if(record.equals(getRecord(num))) {
 			return false; // do not update the record if it is the same
+		}*/
+		int nthRecord = num;
+		if(num > 100) { // see above
+			nthRecord = num - ((blockId - 1) * 100);
 		}
 		StringBuilder sb = new StringBuilder(this.content);
-		int offset = fileOffset(num);
-		for(int i = offset; i < 40 + offset; i++) {
-			sb.setCharAt(i, record.toCharArray()[i - offset]); // replace the old record with the new one
-		}
+		int offset = fileOffset(nthRecord);
+		sb.replace(offset, FILE_SIZE + offset, record); // starting at the record offset and length 40, replace the old record with the new one
+		this.content = sb.toString();
 		setDirty(true); // set dirty bit so system knows to update the file
+		updateLastUsed();
 		return true;
+	}
+
+	/**
+	 * Updates the last used time to the current time, should be called whenever a Frame is updated or accessed
+	 */
+	private void updateLastUsed() {
+		lastUsed = new Date();
 	}
 }
