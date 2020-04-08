@@ -118,11 +118,11 @@ public class BufferPool {
 	}
 
 	/**
-	 * Checks if the BufferPool has any empty frames (emptyFrames != 0)
+	 * Checks if the BufferPool has any empty frames
 	 * @return True if there are empty frames, false otherwise
 	 */
 	public Boolean hasEmptyFrames() {
-		return emptyFrames != 0;
+		return Math.pow(2, buffers.length) - 1 != ~emptyFrames;
 	}
 
 	/**

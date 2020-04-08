@@ -19,7 +19,7 @@ public class Program {
 		while (sc.hasNextLine()) {
 			String line = sc.nextLine();
 			String[] query = line.split(" ");
-			if (query[0].equals("GET")) {
+			if (query[0].equals("GET") && query.length == 2) {
 				int record = Integer.parseInt(query[1]);
 				int file = (int)Math.ceil(record / 100.0);
 				if(pool.frames.containsKey(file)) { // frame already in memory, case 1
@@ -83,7 +83,7 @@ public class Program {
 					}
 				}
 			}
-			else if (query[0].equals("PIN")) {
+			else if (query[0].equals("PIN") && query.length == 2) {
 				int block = Integer.parseInt(query[1]);
 				if(pool.frames.containsKey(block)) { // case 1
 					int frameID = pool.frames.get(block);
@@ -118,7 +118,7 @@ public class Program {
 					}
 				}
 			}
-			else if (query[0].equals("UNPIN")) {
+			else if (query[0].equals("UNPIN") && query.length == 2) {
 				int block = Integer.parseInt(query[1]);
 				if(pool.frames.containsKey(block)) { // case 1
 					int frameID = pool.frames.get(block);
