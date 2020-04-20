@@ -75,15 +75,37 @@ class Index {
 		return true;
 	}
 
-	ArrayList<Pair<String, String>> getRecordLocator(String randomV) {
+	ArrayList<Pair<String, String>> getRecordLocator(String randomV, Boolean match) {
 		ArrayList<Pair<String, String>> ret = new ArrayList<>();
-		if(table.containsKey(randomV)) {
-			String locator = table.get(randomV);
+		if(match) {
+			if (table.containsKey(randomV)) {
+				String locator = table.get(randomV);
 
-			String[] locations = locator.split("\\_");
-			for (String location : locations) {
-				String[] l = location.split("\\:");
-				ret.add(new Pair<>(l[0], l[1]));
+				String[] locations = locator.split("\\_");
+				for (String location : locations) {
+					String[] l = location.split("\\:");
+					ret.add(new Pair<>(l[0], l[1]));
+				}
+				return ret;
+			}
+		}
+		else {
+			String not = String.format("%04d", Integer.parseInt(randomV));
+			for(int i = 1; i <= 5000; i++) {
+				String test = String.format("%04d", i);
+				if(test.equals(not)) {
+					continue;
+				}
+				else {
+					if(table.containsKey(test)) {
+						String locator = table.get(test);
+						String[] locations = locator.split("\\_");
+						for (String location : locations) {
+							String[] l = location.split("\\:");
+							ret.add(new Pair<>(l[0], l[1]));
+						}
+					}
+				}
 			}
 			return ret;
 		}

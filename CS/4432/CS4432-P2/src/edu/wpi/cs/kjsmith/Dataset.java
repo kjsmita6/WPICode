@@ -17,7 +17,7 @@ class Dataset {
 		files = new String[99];
 	}
 
-	private final String DATA_PATH = System.getProperty("user.dir") + "/Project2Dataset/";
+	final String DATA_PATH = System.getProperty("user.dir") + "/Project2Dataset/";
 
 	void clearFiles() {
 		files = null;
@@ -45,7 +45,7 @@ class Dataset {
 		return true;
 	}
 
-	Pair<ArrayList<String>, Integer> scanForRecords(String randomV) {
+	Pair<ArrayList<String>, Integer> scanForRecords(String randomV, Boolean match) {
 		int cnt = 0;
 		ArrayList<String> records = new ArrayList<>();
 		Pair<ArrayList<String>, Integer> ret = null;
@@ -66,8 +66,15 @@ class Dataset {
 			}
 
 			for(String record : contents.toString().split("\\.\\.\\.")) {
-				if(getRandomV(record, false).equals(randomV)) {
-					records.add(record);
+				if(!match) {
+					if (!getRandomV(record, false).equals(randomV)) {
+						records.add(record);
+					}
+				}
+				else {
+					if (getRandomV(record, false).equals(randomV)) {
+						records.add(record);
+					}
 				}
 			}
 			cnt++;
