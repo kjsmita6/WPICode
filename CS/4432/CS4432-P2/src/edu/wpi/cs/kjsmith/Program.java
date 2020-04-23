@@ -1,13 +1,20 @@
 package edu.wpi.cs.kjsmith;
 
-import com.sun.tools.javac.util.Pair;
+import javafx.util.Pair;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Main program class, contains main
+ */
 public class Program {
+	/**
+	 * Program entry function main
+	 * @param args Array of command line arguments
+	 */
 	public static void main(String[] args) {
 		Dataset ds = new Dataset();
 		Index idx = new Index(ds);
@@ -27,31 +34,29 @@ public class Program {
 				if (query[6].equals("=")) {
 					String v = query[7];
 
-					String indexType = "None";
-					if(idx.initialized) {
-						indexType = "Hash-Based";
-					}
 					int cnt = 0;
 					StringBuilder toPrint = new StringBuilder();
+					String indexType = "None";
 
 					long start = System.currentTimeMillis();
 					if(idx.initialized) {
-						ArrayList<Pair<String, String>> records = idx.getRecordLocator(v, true);
+						indexType = "Hash-Based";
+						ArrayList<Pair<String, String>> records = idx.getRecordLocator(v, true, IndexType.Hash);
 						if(records != null) {
 							for (Pair<String, String> locator : records) {
-								toPrint.append(ds.getRecord(locator.fst, locator.snd)).append("\n");
+								toPrint.append(ds.getRecord(locator.getKey(), locator.getValue())).append("\n");
 							}
 							cnt = records.size();
 						}
 					}
 					else {
 						Pair<ArrayList<String>, Integer> results = ds.scanForRecords(v, true);
-						if(results.fst != null) {
-							for (String record : results.fst) {
+						if(results.getKey() != null) {
+							for (String record : results.getKey()) {
 								toPrint.append(record).append("\n");
 							}
 						}
-						cnt = results.snd;
+						cnt = results.getValue();
 					}
 					long stop = System.currentTimeMillis();
 
@@ -69,27 +74,40 @@ public class Program {
 					String indexType = "None";
 
 					long start = System.currentTimeMillis();
-					for(int i = 1; i < 100; i++) {
-						Scanner sc1 = null;
-						try {
-							sc1 = new Scanner(new File(ds.DATA_PATH + "/F" + String.format("%d", i) + ".txt"));
-						} catch (FileNotFoundException e) {
-							e.printStackTrace();
-						}
-						String f = "";
-						while(sc1.hasNextLine()) {
-							f += sc1.nextLine();
-						}
 
-						String[] records = ds.getRecords(f);
-						for(String record : records) {
-							int randomV = Integer.parseInt(ds.getRandomV(record, true));
-							if(randomV > v1 || randomV < v2) {
-								toPrint.append(record).append("\n");
-							}
-						}
-						cnt++;
+					// As seen with !=, it is more efficient to scan each file instead of reading the index
+					// With result sets as large as these, the overhead from reading the index will significantly increase the time
+					// needed to get the results (~300 ms for no index, ~11000 ms with index).
+					/*
+					if(idx.initialized) {
+						indexType = "Array-Based";
+						// TODO: Index-based lookup
 					}
+					else {*/
+						for (int i = 1; i < 100; i++) {
+							Scanner sc1 = null;
+							try {
+								sc1 = new Scanner(new File(ds.DATA_PATH + "/F" + String.format("%d", i) + ".txt"));
+							} catch (FileNotFoundException e) {
+								e.printStackTrace();
+							}
+							String f = "";
+							while (sc1.hasNextLine()) {
+								f += sc1.nextLine();
+							}
+
+							String[] records = ds.getRecords(f);
+							if(records != null) {
+								for (String record : records) {
+									int randomV = Integer.parseInt(ds.getRandomV(record, true));
+									if (randomV > v1 || randomV < v2) {
+										toPrint.append(record).append("\n");
+									}
+								}
+							}
+							cnt++;
+						}
+					//}
 					long stop = System.currentTimeMillis();
 
 					System.out.println(toPrint.toString().trim());
@@ -99,25 +117,20 @@ public class Program {
 				}
 				else if (query[6].equals("!=")) {
 					int v = Integer.parseInt(query[7]);
-
-					String indexType = "None";
-					//if(idx.initialized) {
-					//	indexType = "Hash-Based";
-					//}
 					int cnt = 0;
 					StringBuilder toPrint = new StringBuilder();
+					String indexType = "None";
 
 					long start = System.currentTimeMillis();
-
-					// Index is slower than without
-					/*if(idx.initialized) {
-						ArrayList<Pair<String, String>> records = idx.getRecordLocator(query[7], false);
-						if (records != null) {
-							for(int i = 1; i < 100; i++) {
-								String[] recordsInFile = ds.getRecords(String.format("%d", i));
-								for (Pair<String, String> locator : records) {
-									if (Integer.parseInt(locator.fst) == i) {
-										toPrint.append(ds.getRecord(locator.fst, locator.snd)).append("\n");
+					/*
+					if(idx.initialized) {
+						indexType = "Array-Based";
+						for(int i = 0; i < 5000; i++) {
+							if(i + 1 != v) {
+								ArrayList<Pair<String, String>> records = idx.getRecordLocator(String.format("%04d", i + 1), true, IndexType.Array);
+								if(records != null) {
+									for (Pair<String, String> record : records) {
+										toPrint.append(ds.getRecord(record.fst, record.snd)).append("\n");
 										cnt++;
 									}
 								}
@@ -126,13 +139,13 @@ public class Program {
 					}
 					else {*/
 						String not = String.format("%04d", v);
-						Pair<ArrayList<String>, Integer> results = ds.scanForRecords(not, false );
-						if (results.fst != null) {
-							for (String record : results.fst) {
+						Pair<ArrayList<String>, Integer> results = ds.scanForRecords(not, false);
+						if (results.getKey() != null) {
+							for (String record : results.getKey()) {
 								toPrint.append(record).append("\n");
 							}
 						}
-						cnt = results.snd;
+						cnt = results.getValue();
 					//}
 					long stop = System.currentTimeMillis();
 
