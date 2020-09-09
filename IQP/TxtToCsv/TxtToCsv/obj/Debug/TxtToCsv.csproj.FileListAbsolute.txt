@@ -1,5 +1,0 @@
-/Users/kylesmith/Projects/TxtToCsv/TxtToCsv/bin/Debug/TxtToCsv.exe
-/Users/kylesmith/Projects/TxtToCsv/TxtToCsv/bin/Debug/TxtToCsv.pdb
-/Users/kylesmith/Projects/TxtToCsv/TxtToCsv/obj/Debug/TxtToCsv.csprojAssemblyReference.cache
-/Users/kylesmith/Projects/TxtToCsv/TxtToCsv/obj/Debug/TxtToCsv.exe
-/Users/kylesmith/Projects/TxtToCsv/TxtToCsv/obj/Debug/TxtToCsv.pdb
