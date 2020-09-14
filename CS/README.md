@@ -12,4 +12,5 @@ Our hands-on education ensures that graduates of the Computer Science program le
 - 3516 : Computer Networks
 - 3733 : Software Engineering
 - 4432 : Database Systems II
+- 4518 : Mobile & Ubiquitous Computing
 - 4536 : Programming Languages

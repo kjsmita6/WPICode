@@ -6,3 +6,4 @@ Through our innovative Theory and Practice curriculum, hands-on laboratories, an
 - 2029 : Introduction to Digital Circuit Design
 - 2049 : Embedded Computing in Engineering Design
 - 3849 : Real-Time Embedded Systems
+- 4801 : Computer Organization and Design
