@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Basketball Counter</string>
+    <string name="team_A">Team A</string>
+    <string name="team_B">Team B</string>
+    <string name="pts_3">+3 POINTS</string>
+    <string name="pts_2">+2 POINTS</string>
+    <string name="pts_1">FREE THROW</string>
+    <string name="reset">RESET</string>
+    <string name="tino">Tino says good job in your game. What do you say?</string>
+    <string name="thanks_tino">Thank you, Tino.</string>
+    <string name="talking_dog">Why is this dog talking???</string>
+    <string name="save">Save</string>
+    <string name="display">Display</string>
+</resources>
