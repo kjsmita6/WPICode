@@ -1,4 +1,4 @@
-package edu.wpi.cs.kjsmith.project3
+package edu.wpi.cs.kjsmith.project3.model
 
 import android.util.Log
 import androidx.lifecycle.LiveData
