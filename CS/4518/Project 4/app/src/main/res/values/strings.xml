@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Basketball Counter</string>
+    <string name="team_A">Team A</string>
+    <string name="team_B">Team B</string>
+    <string name="pts_3">+3 POINTS</string>
+    <string name="pts_2">+2 POINTS</string>
+    <string name="pts_1">FREE THROW</string>
+    <string name="reset">RESET</string>
+    <string name="save">Save</string>
+    <string name="display">Display</string>
+    <string name="fmt_date">Game #%d — %s</string>
+    <string name="winningTeamDesc">The winning team\'s logo, set at runtime</string>
+    <string name="fmt_score">%d:%d</string>
+    <string name="fmt_teams">Team %s:Team %s</string>
+</resources>

@@ -1,0 +1,5 @@
+# CS 4518 - MOBILE & UBIQUITOUS COMPUTING
+### A Term 2020
+### Prof. Tian Guo
+
+The goal of this course is to acquaint students with fundamental concepts and state-of-the-art computer science literature in mobile and ubiquitous computing. Topics to be covered include mobile systems issues, human activity and emotion sensing, location sensing, mobile human-computer interaction, mobile social networking, mobile health, power saving techniques, energy and mobile performance measurement studies and mobile security. The course will introduce the programming of mobile devices such as smartphones running the Android operating system. Recommended background: Proficiency in programming in Java, including classes, inheritance, exceptions, interfaces, polymorphism (CS 2012 or equivalent). Students may not earn credit for both CS 403X and CS 4518.
