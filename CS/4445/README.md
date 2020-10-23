@@ -1,0 +1,5 @@
+# CS 4445 - DATA MINING AND KNOWLEDGE DISCOVERY IN DATABASES
+### B Term 2020
+### Prof. Xiangnan Kong
+
+This course provides an introduction to Knowledge Discovery in Databases (KDD) and Data Mining. KDD deals with data integration techniques and with the discovery, interpretation and visualization of patterns in large collections of data. Topics covered in this course include data warehousing and mediation techniques; data mining methods such as rule-based learning, decision trees, association rules and sequence mining; and data visualization. The work discussed originates in the fields of artificial intelligence, machine learning, statistical data analysis, data visualization, databases, and information retrieval. Several scientific and industrial applications of KDD will be studied. Recommended background: MA 2611, CS 2223, and CS 3431, or CS 3733. This course will be offered in 2016-17, and in alternating years thereafter.
