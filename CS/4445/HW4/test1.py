@@ -110,6 +110,6 @@ def test_subset_matrix():
     X_m = subset_matrix(X,m)
     assert np.allclose(X_m,[[1,2],[5,6]])
     m=np.array([False,True,True])
-    X_m = subset_vector(X,m)
+    X_m = subset_matrix(X,m)
     assert np.allclose(X_m,[[3,4],[5,6]])
 
