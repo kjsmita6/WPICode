@@ -22,7 +22,7 @@ def Terms_and_Conditions():
     '''
     #*******************************************
     # CHANGE HERE: if you have read and agree with the term above, change "False" to "True".
-    Read_and_Agree = False
+    Read_and_Agree = True
     #*******************************************
     return Read_and_Agree
 
@@ -142,7 +142,6 @@ def choose_action(Rt, Ct, e=0.05):
     ## INSERT YOUR CODE HERE (25 points)
     if np.random.randint(0, 101) <= e * 100:
         a = choose_action_explore(len(Rt))
-        print('explore')
     else:
         a = choose_action_exploit(Rt, Ct)
     #########################################
