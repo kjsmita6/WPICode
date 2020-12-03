@@ -140,7 +140,7 @@ def choose_action_exploit(Rt, Ct):
 def choose_action(Rt, Ct, e=0.05):
     #########################################
     ## INSERT YOUR CODE HERE (25 points)
-    if np.random.randint(0, 101) <= e * 100:
+    if np.random.randint(0, 101) < e * 100:
         a = choose_action_explore(len(Rt))
     else:
         a = choose_action_exploit(Rt, Ct)
