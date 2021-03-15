@@ -6,6 +6,7 @@ Our hands-on education ensures that graduates of the Computer Science program le
 - 1102 : Accelerated Introduction to Program Design
 - 2011 : Introduction to Machine Organization and Assembly
 - 2102 : Object-Oriented Design Concepts
+- 2223: Algorithms
 - 2303 : Systems Programming Concepts
 - 3013 : Operating Systems
 - 3431 : Database Systems I
