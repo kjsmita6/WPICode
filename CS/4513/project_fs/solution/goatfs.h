@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-
+#include <math.h>
 
 // internal error codes
 #define ERR_BAD_MAGIC_NUMBER (-1)

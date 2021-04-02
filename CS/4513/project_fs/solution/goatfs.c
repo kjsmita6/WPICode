@@ -45,7 +45,27 @@ void debug() {
 }
 
 bool format() {
-    return false;
+    if (_disk->Mounts > 0) {
+        return false;
+    } else {
+        SuperBlock *sp = (SuperBlock *)malloc(BLOCK_SIZE);
+        sp->MagicNumber = MAGIC_NUMBER;
+        sp->Blocks = _disk->Blocks;
+        sp->InodeBlocks = ceil(sp->Blocks / 10.0);
+        sp->Inodes = sp->InodeBlocks * INODES_PER_BLOCK;
+        wwrite(0, (char *)sp);
+        int i;
+        for (i = 1; i < sp->InodeBlocks + 1; i++) {
+            Inode *in = (Inode *)malloc(sizeof(Inode));
+            in->Valid = 0;
+            wwrite(i, (char *)in);
+        }
+        for (i = sp->InodeBlocks + 1; i < sp->Blocks; i++) {
+            char *data = (char *)malloc(BLOCK_SIZE);
+            wwrite(i, data);
+        }
+        return true;
+    }
 }
 
 int mount() {
