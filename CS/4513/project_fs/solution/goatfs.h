@@ -24,6 +24,8 @@
 #define POINTERS_PER_INODE (5) // direct pointers
 #define POINTERS_PER_BLOCK (1024)
 
+// Inode bitmap
+char *free_bmp;
 
 // functions
 extern void debug();

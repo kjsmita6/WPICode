@@ -69,11 +69,75 @@ bool format() {
 }
 
 int mount() {
-    return 0;
+    if (_disk->Mounts > 0) {
+        return !SUCCESS_GOOD_MOUNT;
+    }
+    SuperBlock *sp = (SuperBlock *)malloc(BLOCK_SIZE);
+    wread(0, (char *)sp);
+    if (sp->MagicNumber != MAGIC_NUMBER) {
+        return ERR_BAD_MAGIC_NUMBER;
+    }
+    if (sp->InodeBlocks * INODES_PER_BLOCK != sp->Inodes) {
+        return !SUCCESS_GOOD_MOUNT;
+
+    }
+    if (sp->Blocks != _disk->Blocks) {
+        return !SUCCESS_GOOD_MOUNT;
+    }
+    int i;
+    int j;
+    free_bmp = (char *)malloc(sp->Blocks * sizeof(char));
+    for (i = 1; i < sp->InodeBlocks + 1; i++) {
+        Block *blk = (Block *)malloc(BLOCK_SIZE);
+        wread(i, blk->Data);
+        for (j = 0; j < INODES_PER_BLOCK; j++) {
+            Inode in = blk->Inodes[j];
+            if (in.Valid) {
+                int k;
+                for (k = 0; k < POINTERS_PER_INODE; k++) {
+                    unsigned int direct = in.Direct[k];
+                    if (direct) {
+                        free_bmp[direct] = 1;
+                    } else {
+                        free_bmp[direct] = 0;
+                    }
+                }
+                if (in.Indirect) {
+                    free_bmp[in.Indirect] = 1;
+                }
+            }
+        }
+    }
+    _disk->Mounts++;
+    return SUCCESS_GOOD_MOUNT;
 }
 
 ssize_t create() {
-    return 0;
+    if (_disk->Mounts < 1) {
+        return -1;
+    }
+    SuperBlock *sp = (SuperBlock *)malloc(BLOCK_SIZE);
+    wread(0, (char *)sp);
+    int i;
+    int j;
+    for (i = 1; i < sp->InodeBlocks + 1; i++) {
+        Block *blk = (Block *)malloc(BLOCK_SIZE);
+        wread(1, blk->Data);
+        for (j = 0; j < INODES_PER_BLOCK; j++) {
+            Inode in = blk->Inodes[j];
+            if (!in.Valid) {
+                in.Valid = 1;
+                in.Size = 0;
+                in.Direct[0] = 0;
+                in.Direct[1] = 0;
+                in.Indirect = 0;
+                blk->Inodes[j] = in;
+                wwrite(i, (char *)blk);
+                return j;
+            }
+        }
+    }
+    return -1;
 }
 
 bool wremove(size_t inumber) {
