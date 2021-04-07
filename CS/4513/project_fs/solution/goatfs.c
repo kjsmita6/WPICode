@@ -130,6 +130,9 @@ ssize_t create() {
                 in.Size = 0;
                 in.Direct[0] = 0;
                 in.Direct[1] = 0;
+                in.Direct[2] = 0;
+                in.Direct[3] = 0;
+                in.Direct[4] = 0;
                 in.Indirect = 0;
                 blk->Inodes[j] = in;
                 wwrite(i, (char *)blk);
@@ -141,11 +144,46 @@ ssize_t create() {
 }
 
 bool wremove(size_t inumber) {
-    return false;
+    if (_disk->Mounts < 1) {
+        return false;
+    }
+    int block_num = inumber / INODES_PER_BLOCK;
+    Block *blk = (Block *)malloc(BLOCK_SIZE);
+    wread(block_num + 1, blk->Data);
+    int inum = inumber % INODES_PER_BLOCK;
+    Inode in = blk->Inodes[inum];
+    if (!in.Valid) {
+        return false;
+    }
+    int i;
+    for (i = 0; i < POINTERS_PER_INODE; i++) {
+        free_bmp[in.Direct[i]] = 1;
+        in.Direct[i] = 0;
+    }
+    if (in.Indirect != 0) {
+        free_bmp[in.Indirect] = 1;
+        in.Indirect = 0;
+    }
+    in.Size = 0;
+    in.Valid = 0;
+    blk->Inodes[inum] = in;
+    wwrite(block_num + 1, blk->Data);
+    return true;
 }
 
 ssize_t stat(size_t inumber) {
-    return 0;
+    if (_disk->Mounts < 1) {
+        return -1;
+    }
+    int block_num = inumber / INODES_PER_BLOCK;
+    Block *blk = (Block *)malloc(BLOCK_SIZE);
+    wread(block_num + 1, blk->Data);
+    int inum = inumber % INODES_PER_BLOCK;
+    Inode in = blk->Inodes[inum];
+    if (!in.Valid) {
+        return -1;
+    }
+    return in.Size;
 }
 
 ssize_t wfsread(size_t inumber, char *data, size_t length, size_t offset) {
