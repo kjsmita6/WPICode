@@ -108,9 +108,17 @@ Brief response please!
 7. To implement `read()`, you will need to locate the inode and copy data from appropriate blocks to the user-specified data buffer.
 
 7.1  How will you determine if the specified inode is valid?
+    First, read the block that has the given inode as in the previous two questions. Check if
+    !Inode.Valid.
 7.2  How will you determine which block to read from?
+    With the given Inode number, with a known amount of inode per block, you can calculate the
+    block number by calculating inode number / INODES_PER_BLOCK + 1 to get the block number. Then,    do inode number % INODES_PER_BLOCK to get the inode number in that specific block (e.g.,
+    inode 129 is inode 1 in block 2 if INODES_PER_BLOCK is 128).
 7.3  How will you handle the offset?
+    By using pointer arithmetic, you can read the block but only copy the memory (using memcpy)
+    starting at a certain point. 
 7.4  How will you copy from a block to the data buffer?
+    You can use the library function strncpy to copy n bytes of a string into another buffer.
 
 Brief response please!
 
@@ -135,6 +143,9 @@ Errata
 ------
 
 Describe any known errors, bugs, or deviations from the requirements.
+
+    - On some functions, the number of reads and writes differs from the solution, causing the
+    test to fail.
 
 ---
 

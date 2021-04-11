@@ -162,6 +162,15 @@ bool wremove(size_t inumber) {
     }
     if (in.Indirect != 0) {
         free_bmp[in.Indirect] = 1;
+        Block *blk1 = (Block *)malloc(BLOCK_SIZE);
+        wread(in.Indirect, blk1->Data);
+        for (i = 0; i < POINTERS_PER_BLOCK; i++) {
+            if (blk1->Pointers[i] != 0) {
+                free_bmp[blk1->Pointers[i]] = 1;
+                blk1->Pointers[i] = 0;
+            }
+        }
+        wwrite(in.Indirect, blk1->Data);
         in.Indirect = 0;
     }
     in.Size = 0;
@@ -187,9 +196,60 @@ ssize_t stat(size_t inumber) {
 }
 
 ssize_t wfsread(size_t inumber, char *data, size_t length, size_t offset) {
-    return 0;
+    if (_disk->Mounts < 1) {
+        return -1;
+    }
+
+    ssize_t bytes = 0;
+    int block_num = inumber / INODES_PER_BLOCK;
+    Block *blk = (Block *)malloc(BLOCK_SIZE);
+    wread(block_num + 1, blk->Data);
+    int inum = inumber % INODES_PER_BLOCK;
+    Inode in = blk->Inodes[inum];
+    if (!in.Valid) {
+        return -1;
+    }
+
+    length = min(length, in.Size - offset);
+    Block *indirect = (Block *)malloc(BLOCK_SIZE);
+    if (in.Indirect) {
+        wread(in.Indirect, indirect->Data);
+    }
+
+    int block_idx = offset / BLOCK_SIZE;
+    while (bytes < length) {
+        if (block_idx < POINTERS_PER_INODE) {
+            block_num = in.Direct[block_idx];
+        } else {
+            block_num = indirect->Pointers[block_idx - POINTERS_PER_INODE];
+        }
+        if (block_num < 1) {
+            return -1;
+        }
+
+        blk = (Block *)realloc(blk, BLOCK_SIZE);
+        wread(block_num, blk->Data);
+
+        size_t _offset = 0;
+        size_t _length = min(length - bytes, BLOCK_SIZE);
+        if (bytes == 0) {
+            _offset = offset % BLOCK_SIZE;
+            _length = min(length, BLOCK_SIZE - _offset);
+        }
+
+        memcpy(&data[bytes], &blk->Data[_offset], _length);
+        bytes += _length;
+        block_idx++;
+    }
+    return bytes;
 }
 
 ssize_t wfswrite(size_t inumber, char *data, size_t length, size_t offset) {
-    return 0;
+    if (_disk->Mounts < 1) {
+        return -1;
+    }
+    length = min(length, BLOCK_SIZE * POINTERS_PER_INODE * POINTERS_PER_BLOCK - offset);
+
+    
+
 }
