@@ -118,7 +118,8 @@ Brief response please!
     By using pointer arithmetic, you can read the block but only copy the memory (using memcpy)
     starting at a certain point. 
 7.4  How will you copy from a block to the data buffer?
-    You can use the library function strncpy to copy n bytes of a string into another buffer.
+    You can use the library function strncpy to copy n bytes of a string into another buffer. I
+    chose to use memcpy because I think it is easier with the offset.
 
 Brief response please!
 
@@ -127,12 +128,26 @@ Brief response please!
 8. To implement `write()`, you will need to locate the inode and copy data the user-specified data buffer to data blocks in the file system.
 
 8.1  How will you determine if the specified inode is valid?
+    Same as previous questions, calculate the block containing the inode, read it in, and check
+    if !Inode.Valid.
 8.2  How will you determine which block to write to?
-8.3  How will you handle the offset?
+    You can search the free block bitmap that is created when the disk is mounted for a free
+    block. Find the first free block and set the direct pointer to this block. Then, for each
+    subsequent block, either use the next block after the previous one or search the bitmap again8.3  How will you handle the offset?
+    Similarly to how we read the data, this time the offset is applied to the block that is being    written instead of to the data. To be used in the call to memcpy.
 8.4  How will you know if you need a new block?
+    You will need a new block any time you write to a block but the amount of bytes written is
+    less than the requested length. If 5 blocks are written but more are still needed then you
+    can allocate the indirect block.
 8.5  How will you manage allocating a new block if you need another one?
-8.6  How will you copy from a block to the data buffer?
-8.7  How will you update the inode?
+    You can search the free bitmap and find the first empty block.
+8.6  How will you copy to a block from the data buffer?
+    Using memcpy with the offset you can copy the data into a temporary buffer. It is the same
+    as what was done in read() except the block and data buffer positions are switched in memcpy.8.7  How will you update the inode?
+    Similar to previous parts. Read in the block from disk (because data was written to it, we
+    don't want to delete those changes), get the inode index and update the object. Finally,
+    write it back to disk. This feature is optimized to only write to disk if something is
+    changed, as opposed to writing to disk every time the function is called.
 
 Brief response please!
 
@@ -146,6 +161,7 @@ Describe any known errors, bugs, or deviations from the requirements.
 
     - On some functions, the number of reads and writes differs from the solution, causing the
     test to fail.
+    - Only able to pass 3/5 test cases for test_copyin.
 
 ---
 
