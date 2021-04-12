@@ -30,8 +30,14 @@
        typeof (b) _b = (b); \
      _a <= _b ? _a : _b; })
 
+#define max(a,b) \
+    ({ typeof (a) _a = (a); \
+        typeof (b) _b = (b); \
+      _a > _b ? _a : _b; })
+
 // Inode bitmap
 char *free_bmp;
+extern int free_block();
 
 // functions
 extern void debug();
@@ -73,5 +79,8 @@ union _Block {
 typedef union _Block Block;
 
 DISK* _disk;    // disk handler
+
+extern int read_inode(size_t inumber, Block *blk, Inode *inode);
+extern void write_inode(size_t inumber, Block *blk, Inode *inode);
 
 #endif

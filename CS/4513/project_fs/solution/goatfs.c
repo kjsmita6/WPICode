@@ -86,7 +86,9 @@ int mount() {
     }
     int i;
     int j;
+
     free_bmp = (char *)malloc(sp->Blocks * sizeof(char));
+    free_bmp[0] = 0;
     for (i = 1; i < sp->InodeBlocks + 1; i++) {
         Block *blk = (Block *)malloc(BLOCK_SIZE);
         wread(i, blk->Data);
@@ -95,15 +97,22 @@ int mount() {
             if (in.Valid) {
                 int k;
                 for (k = 0; k < POINTERS_PER_INODE; k++) {
-                    unsigned int direct = in.Direct[k];
+                    int direct = in.Direct[k];
                     if (direct) {
                         free_bmp[direct] = 1;
                     } else {
                         free_bmp[direct] = 0;
                     }
                 }
+
                 if (in.Indirect) {
+                    //Block *indirect = (Block *)malloc(BLOCK_SIZE);
+                    //wread(in.Indirect, indirect->Data);
                     free_bmp[in.Indirect] = 1;
+                    //int k;
+                    //for (k = 0; k < POINTERS_PER_INODE; k++) {
+                    //    free_bmp[indirect->Pointers[k]] = 0;
+                    //}
                 }
             }
         }
@@ -248,8 +257,130 @@ ssize_t wfswrite(size_t inumber, char *data, size_t length, size_t offset) {
     if (_disk->Mounts < 1) {
         return -1;
     }
-    length = min(length, BLOCK_SIZE * POINTERS_PER_INODE * POINTERS_PER_BLOCK - offset);
+    int block_num_origin = inumber / INODES_PER_BLOCK;
+    Block *blk = (Block *)malloc(BLOCK_SIZE);
+    wread(block_num_origin + 1, blk->Data);
+    int inum = inumber % INODES_PER_BLOCK;
+    Inode in = blk->Inodes[inum];
+    if (!in.Valid || in.Size < offset) {
+        return -1;
+    }
 
-    
+    Block *indirect = (Block *)malloc(BLOCK_SIZE);
+
+    length = min(length, (BLOCK_SIZE * POINTERS_PER_INODE * POINTERS_PER_BLOCK) - offset);
+    ssize_t bytes = 0;
+
+    bool inode_changed = false;
+    bool indirect_changed = false;
+    bool indirect_read = false;
+
+    int block_num = offset / BLOCK_SIZE;
+    int block_idx = block_num;
+    while (bytes < length) {
+        if (block_idx < POINTERS_PER_INODE) {
+            if (in.Direct[block_idx] == 0) {
+                int free_blk = free_block();
+                if (free_blk == -1) {
+                    break;
+                }
+                in.Direct[block_idx] = free_blk;
+                inode_changed = true;
+            }
+            block_num = in.Direct[block_idx];
+        } else {
+            int indirect_idx = block_idx - POINTERS_PER_INODE;
+            if (in.Indirect == 0) {
+                int free_blk = free_block();
+                if (free_blk == -1) {
+                    break;
+                }
+                in.Indirect = free_blk;
+                indirect_changed = true;
+            }
+
+            if (!indirect_read) {
+                wread(in.Indirect, indirect->Data);
+                indirect_read = true;
+            }
+            if (indirect->Pointers[indirect_idx] == 0) {
+                int free_blk = free_block();
+                if (free_blk == -1) {
+                    break;
+                }
+                indirect->Pointers[indirect_idx] = free_blk;
+                indirect_changed = true;
+            }
+            block_num = indirect->Pointers[indirect_idx];
+        }
+
+        size_t _offset = 0;
+        size_t _length = min(length - bytes, BLOCK_SIZE);
+        if (bytes == 0) {
+            _offset = offset % BLOCK_SIZE;
+            _length = min(length, BLOCK_SIZE - _offset);
+        }
+
+        Block *buff = (Block *)malloc(BLOCK_SIZE);
+
+        if (_length < BLOCK_SIZE) {
+            wread(block_num, buff->Data);
+        }
+        memcpy(&buff->Data[_offset], &data[bytes], _length);
+        wwrite(block_num, buff->Data);
+        bytes += _length;
+        block_idx++;
+    }
+
+    ssize_t inode_size = max(in.Size, bytes + offset);
+    if (inode_size != in.Size) {
+        in.Size = inode_size;
+        inode_changed = true;
+    }
+
+    if (inode_changed) {
+        Block *blk1 = (Block *)malloc(BLOCK_SIZE);
+        wread(block_num_origin + 1, blk1->Data);
+        blk1->Inodes[inum] = in;
+        wwrite(block_num_origin + 1, blk1->Data);
+    }
+
+    if (indirect_changed) {
+        wwrite(in.Indirect, indirect->Data);
+    }
+    return bytes;
 
 }
+
+int free_block() {
+    int block = -1;
+    int i;
+    for (i = 0; i < _disk->Blocks; i++) {
+        if (free_bmp[i] == 1) {
+            free_bmp[i] = 0;
+            block = i;
+            break;
+        }
+    }
+    return block;
+}
+
+/*
+ * Doesn't work :(
+ *
+int read_inode(size_t inumber, Block *blk, Inode *inode) {
+    int block_num = inumber / INODES_PER_BLOCK;
+    wread(block_num + 1, blk->Data);
+    int inum = inumber % INODES_PER_BLOCK;
+    inode = &(blk->Inodes[inum]);
+    return block_num;
+}
+
+void write_inode(size_t inumber, Block *blk, Inode *inode) {
+    int block_num = inumber / INODES_PER_BLOCK;
+    int inum = inumber % INODES_PER_BLOCK;
+    blk->Inodes[inum] = *inode;
+    wwrite(block_num + 1, blk->Data);
+}
+ *
+ */
