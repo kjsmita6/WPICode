@@ -1,0 +1,4 @@
+# CS 4513 - DISTRIBUTED COMPUTING SYSTEMS
+### D Term 2021
+### Prof. Tian Guo
+This course extends the study of the design and implementation of operating systems begun in CS 3013 to distributed and advanced computer systems. Topics include principles and theories of resource allocation, file systems, protection schemes, and performance evaluation as they relate to distributed and advanced computer systems. Students may be expected to design and implement programs that emphasize the concepts of file systems and distributed computing systems using current tools and languages. Undergraduate credit may not be earned both for this course and for CS 502. Recommended background: CS 3013, CS 3516, and system programming experience. This course will be offered in 2015-16, and in alternating years thereafter.
