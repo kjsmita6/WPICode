@@ -18,9 +18,10 @@ func sumWorker(nums chan int, out chan int) {
 	// HINT: use for loop over `nums`
     sum := 0
     for num := range nums {
-        sum := num
+        sum += num
     }
     out <- sum
+    close(out)
 }
 
 /*
@@ -35,11 +36,23 @@ func Sum(num int, fileName string) int {
 	// TODO: implement me
 	// HINT: use `readInts` and `sumWorkers`
 	// HINT: used buffered channels for splitting numbers between workers
-	nums, err := os.Open(fileName)
+	file, _ := os.Open(fileName)
+    nums, _ := readInts(file)
+    sum := 0
     for i := 0; i < num; i++ {
-        
-        go sumWorker(
+        elements := len(nums) / num
+        start := i * elements
+        end := start + elements
+        channel := make(chan int, elements)
+        for j := start; j < end; j++ {
+            channel <- nums[j]
+        }
+        out := make(chan int, 1)
+        go sumWorker(channel, out)
+        close(channel)
+        sum += <-out
     }
+    return sum
 }
 
 /*
