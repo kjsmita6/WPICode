@@ -15,5 +15,6 @@ Our hands-on education ensures that graduates of the Computer Science program le
 - 4341 : Introduction to Artificial Intelligence
 - 4432 : Database Systems II
 - 4445 : Data Mining and Knowledge Discovery in Databases
+- 4513 : Distributed Computing Systems
 - 4518 : Mobile & Ubiquitous Computing
 - 4536 : Programming Languages
