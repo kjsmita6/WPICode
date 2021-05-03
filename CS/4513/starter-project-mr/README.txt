@@ -9,8 +9,7 @@ Finally, if you are unsure how to start the project, we recommend you visit offi
 Team members
 -----------------
 
-1. Alice (alice@wpi.edu)
-2. Bob (bob@wpi.edu)
+1. Kyle Smith (kjsmith@wpi.edu)
 
 Design Questions
 ------------------
@@ -56,16 +55,29 @@ UID and PID can be any integers.
 
 Just give submission full points for this question.
 
+- The machines would use TCP to communicate between eachother. This allows a master to start workers on multiple machines, and TCP also maintains a "handshake" so the worker and the master know about eachother.
+
 
 (2 point) 6. The current design and implementation uses a number of RPC methods. Can you find out all the RPCs and list their signatures? Briefly describe the criteria
 a method needs to satisfy to be considered a RPC method. (Hint: you can look up at: https://golang.org/pkg/net/rpc/)
 
+- Each RPC method needs to look similar to this:
+    func (t *T) MethodName(argType T1, replyType *T2) error
+
+- Two functions that are RPCs are Worker.DoTask and Worker.Shutdown.
+
+
 
 7. We provide a bash script called `main/test-wc-distributed.sh` that allows testing the distributed MapReduce implementation.
+
+Is this a question? Or just a statement.
+
 
 Errata
 ------
 
 Describe any known errors, bugs, or deviations from the requirements.
+
+- For my checkpoint, the grader said that go couldn't find the mr/mapreduce package and said to make sure that all my tests pass. Before submitting the checkpoint, I ran and passed all the tests, so there was no problem running the code on my computer. I did it exactly as it said in the project document.
 
 ---

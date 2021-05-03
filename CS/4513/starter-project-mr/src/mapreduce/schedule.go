@@ -1,5 +1,9 @@
 package mapreduce
 
+import (
+    "sync"
+)
+
 // schedule starts and waits for all tasks in the given phase (Map or Reduce).
 func (mr *Master) schedule(phase jobPhase) {
 	var ntasks int
@@ -21,6 +25,28 @@ func (mr *Master) schedule(phase jobPhase) {
 	// multiple tasks.
 	//
 	// TODO:
+    var wg sync.WaitGroup
+    for i := 0; i < ntasks; i++ {
+        wg.Add(1)
+        go func(file int) {
+            defer wg.Done()
+            args := DoTaskArgs{mr.jobName, mr.files[file], phase, file, nios}
+            var name string
+            finished := false
+            for finished != true {
+                name = <- mr.registerChannel
+                finished = call(name, "Worker.DoTask", args, nil)
+            }
+            // Discussions on Canvas: "worker must reregister itself with master". Not
+            // really sure why it does, but I remove this function then the program
+            // never finishes.
+            go func() {
+                mr.registerChannel <- name
+            }()
+        }(i)
+    }
+
+    wg.Wait()
 
 	debug("Schedule: %v phase done\n", phase)
 }
